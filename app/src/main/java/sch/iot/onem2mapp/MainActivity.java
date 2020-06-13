@@ -1,5 +1,5 @@
 package sch.iot.onem2mapp;
-
+//연동 테스트
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
