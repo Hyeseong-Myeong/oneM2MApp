@@ -447,69 +447,69 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.btnRetrieve: {
-//                RetrieveRequest req = new RetrieveRequest("light");
-//                req.setReceiver(new IReceived() {
-//                    public void getResponseBody(final String msg) {
-//                    handler.post(new Runnable() {
-//                        public void run() {
-//                            textLight.setText(getContainerContentXML(msg));
-//                        }
-//                    });
-//                    }
-//                });
-//                req.start();
-//
-//                req = new RetrieveRequest("accel");
-//                req.setReceiver(new IReceived() {
-//                    public void getResponseBody(final String msg) {
-//                        handler.post(new Runnable() {
-//                            public void run() {
-//                                textAccel.setText(getContainerContentXML(msg));
-//                            }
-//                        });
-//                    }
-//                });
-//                req.start();
-//
-//                req = new RetrieveRequest("dust");
-//                req.setReceiver(new IReceived() {
-//                    public void getResponseBody(final String msg) {
-//                        handler.post(new Runnable() {
-//                            public void run() {
-//                                textDust.setText(getContainerContentXML(msg));
-//                            }
-//                        });
-//                    }
-//                });
-//                req.start();
-//
-//                req = new RetrieveRequest("ultrasonic");
-//                req.setReceiver(new IReceived() {
-//                    public void getResponseBody(final String msg) {
-//                        handler.post(new Runnable() {
-//                            public void run() {
-//                                textUltrasonic.setText(getContainerContentXML(msg));
-//                            }
-//                        });
-//                    }
-//                });
-//                req.start();
-//
-//                req = new RetrieveRequest("temp");
-//                req.setReceiver(new IReceived() {
-//                    public void getResponseBody(final String msg) {
-//                        handler.post(new Runnable() {
-//                            public void run() {
-//                                textTemp.setText(getContainerContentXML(msg));
-//                            }
-//                        });
-//                    }
-//                });
-//                req.start();
-//
-//                break;
-//            }
+/*            case R.id.btnRetrieve: {
+                RetrieveRequest req = new RetrieveRequest("light");
+                req.setReceiver(new IReceived() {
+                    public void getResponseBody(final String msg) {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            textLight.setText(getContainerContentXML(msg));
+                        }
+                    });
+                    }
+                });
+                req.start();
+
+                req = new RetrieveRequest("accel");
+                req.setReceiver(new IReceived() {
+                    public void getResponseBody(final String msg) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                textAccel.setText(getContainerContentXML(msg));
+                            }
+                        });
+                    }
+                });
+                req.start();
+
+                req = new RetrieveRequest("dust");
+                req.setReceiver(new IReceived() {
+                    public void getResponseBody(final String msg) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                textDust.setText(getContainerContentXML(msg));
+                            }
+                        });
+                    }
+                });
+                req.start();
+
+                req = new RetrieveRequest("ultrasonic");
+                req.setReceiver(new IReceived() {
+                    public void getResponseBody(final String msg) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                textUltrasonic.setText(getContainerContentXML(msg));
+                            }
+                        });
+                    }
+                });
+                req.start();
+
+                req = new RetrieveRequest("temp");
+                req.setReceiver(new IReceived() {
+                    public void getResponseBody(final String msg) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                textTemp.setText(getContainerContentXML(msg));
+                            }
+                        });
+                    }
+                });
+                req.start();
+
+                break;
+            }*/
             case R.id.btnControl_Red: {
                 if (((ToggleButton) v).isChecked()) {
                     ((ToggleButton) v).setTextColor(getResources().getColor(R.color.colorTextRed));
@@ -600,39 +600,39 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 }
                 break;
             }
-//            case R.id.toggleButton_Addr: {
-//                if (((ToggleButton) v).isChecked()) {
-//
-//                    btnRetrieve.setVisibility(View.VISIBLE);
-//                    Switch_MQTT.setVisibility(View.VISIBLE);
-//                    btnControl_Red.setVisibility(View.VISIBLE);
-//                    btnControl_Green.setVisibility(View.VISIBLE);
-//                    btnControl_Blue.setVisibility(View.VISIBLE);
-//
-//                    // added by J. Yun, SCH Univ.
-//                    EditText_Address.setHintTextColor(Color.BLUE);
-//                    EditText_Address.setBackgroundColor(Color.LTGRAY);
-//                    EditText_Address.setFocusable(false);
-//
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
-//
-//                    GetAEInfo();
-//
-//                } else {
-//                    btnRetrieve.setVisibility(View.INVISIBLE);
-//                    Switch_MQTT.setVisibility(View.INVISIBLE);
-//                    btnControl_Red.setVisibility(View.INVISIBLE);
-//                    btnControl_Green.setVisibility(View.INVISIBLE);
-//                    btnControl_Blue.setVisibility(View.INVISIBLE);
-//
-//                    // added by J. Yun, SCH Univ.
-//                    EditText_Address.setBackgroundColor(Color.WHITE);
-//                    EditText_Address.setHintTextColor(Color.GRAY);
-//                    EditText_Address.setFocusable(true);
-//                }
-//                break;
-//            }
+/*            case R.id.toggleButton_Addr: {
+                if (((ToggleButton) v).isChecked()) {
+
+                    btnRetrieve.setVisibility(View.VISIBLE);
+                    Switch_MQTT.setVisibility(View.VISIBLE);
+                    btnControl_Red.setVisibility(View.VISIBLE);
+                    btnControl_Green.setVisibility(View.VISIBLE);
+                    btnControl_Blue.setVisibility(View.VISIBLE);
+
+                    // added by J. Yun, SCH Univ.
+                    EditText_Address.setHintTextColor(Color.BLUE);
+                    EditText_Address.setBackgroundColor(Color.LTGRAY);
+                    EditText_Address.setFocusable(false);
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
+
+                    GetAEInfo();
+
+                } else {
+                    btnRetrieve.setVisibility(View.INVISIBLE);
+                    Switch_MQTT.setVisibility(View.INVISIBLE);
+                    btnControl_Red.setVisibility(View.INVISIBLE);
+                    btnControl_Green.setVisibility(View.INVISIBLE);
+                    btnControl_Blue.setVisibility(View.INVISIBLE);
+
+                    // added by J. Yun, SCH Univ.
+                    EditText_Address.setBackgroundColor(Color.WHITE);
+                    EditText_Address.setHintTextColor(Color.GRAY);
+                    EditText_Address.setFocusable(true);
+                }
+                break;
+            }*/
         }
     }
     @Override
