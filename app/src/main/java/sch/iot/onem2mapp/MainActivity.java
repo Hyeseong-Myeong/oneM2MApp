@@ -38,14 +38,15 @@ import java.util.logging.Logger;
 
 import fr.arnaudguyon.xmltojsonlib. XmlToJson;
 
+
 import static sch.iot.onem2mapp.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    public Button btnRetrieve;
+//    public Button btnRetrieve;
     public ToggleButton btnControl_Red;
     public ToggleButton btnControl_Green;
     public ToggleButton btnControl_Blue;
-    public Switch Switch_MQTT;
+//    public Switch Switch_MQTT;
     public TextView textViewData;
 
     // added by J. Yun, SCH Univ.
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public TextView textTemp;
 
     public Handler handler;
-    public ToggleButton btnAddr_Set;
+//    public ToggleButton btnAddr_Set;
 
     private static CSEBase csebase = new CSEBase();
     private static AE ae = new AE();
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private String MQTT_Req_Topic = "";
     private String MQTT_Resp_Topic = "";
     private MqttAndroidClient mqttClient = null;
-    private EditText EditText_Address =null;
+//    private EditText EditText_Address =null;
     private String Mobius_Address ="203.253.128.161";
 
     // Main
@@ -83,14 +84,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
 
-        btnRetrieve = findViewById(R.id.btnRetrieve);
-        Switch_MQTT = findViewById(R.id.switch_mqtt);
+//        btnRetrieve = findViewById(R.id.btnRetrieve);
+//        Switch_MQTT = findViewById(R.id.switch_mqtt);
         btnControl_Red = findViewById(R.id.btnControl_Red);
         btnControl_Green = findViewById(R.id.btnControl_Green);
         btnControl_Blue = findViewById(R.id.btnControl_Blue);
         textViewData = findViewById(R.id.textViewData);
-        EditText_Address = findViewById(R.id.editText);
-        btnAddr_Set = findViewById(R.id.toggleButton_Addr);
+//        EditText_Address = findViewById(R.id.editText);
+//        btnAddr_Set = findViewById(R.id.toggleButton_Addr);
 
         // added by J. Yun, SCH Univ.
         textLight = findViewById(R.id.textLight);
@@ -102,35 +103,35 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         textTemp = findViewById(R.id.textTemp);
 
 
-        btnRetrieve.setOnClickListener(this);
-        Switch_MQTT.setOnCheckedChangeListener(this);
+//        btnRetrieve.setOnClickListener(this);
+//        Switch_MQTT.setOnCheckedChangeListener(this);
         btnControl_Red.setOnClickListener(this);
         btnControl_Green.setOnClickListener(this);
         btnControl_Blue.setOnClickListener(this);
-        btnAddr_Set.setOnClickListener(this);
+//        btnAddr_Set.setOnClickListener(this);
 
-        btnRetrieve.setVisibility(View.INVISIBLE);
-        Switch_MQTT.setVisibility(View.INVISIBLE);
+//        btnRetrieve.setVisibility(View.INVISIBLE);
+//        Switch_MQTT.setVisibility(View.INVISIBLE);
         btnControl_Green.setVisibility(View.INVISIBLE);
         btnControl_Blue.setVisibility(View.INVISIBLE);
 
-        btnAddr_Set.setFocusable(true);
+//        btnAddr_Set.setFocusable(true);
 
 //Connect Addr
 
-        btnRetrieve.setVisibility(View.VISIBLE);
-        Switch_MQTT.setVisibility(View.VISIBLE);
+//        btnRetrieve.setVisibility(View.VISIBLE);
+//        Switch_MQTT.setVisibility(View.VISIBLE);
         btnControl_Red.setVisibility(View.VISIBLE);
         btnControl_Green.setVisibility(View.VISIBLE);
         btnControl_Blue.setVisibility(View.VISIBLE);
 
         // added by J. Yun, SCH Univ.
-        EditText_Address.setHintTextColor(Color.BLUE);
-        EditText_Address.setBackgroundColor(Color.LTGRAY);
-        EditText_Address.setFocusable(false);
+//        EditText_Address.setHintTextColor(Color.BLUE);
+//        EditText_Address.setBackgroundColor(Color.LTGRAY);
+//        EditText_Address.setFocusable(false);
 
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
+//        imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
 
         GetAEInfo();
 
