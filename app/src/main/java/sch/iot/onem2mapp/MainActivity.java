@@ -1,5 +1,5 @@
 package sch.iot.onem2mapp;
-//연동 테스트
+
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -38,15 +38,14 @@ import java.util.logging.Logger;
 
 import fr.arnaudguyon.xmltojsonlib. XmlToJson;
 
-
 import static sch.iot.onem2mapp.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener, CompoundButton.OnCheckedChangeListener {
-//    public Button btnRetrieve;
+    //    public Button btnRetrieve;
     public ToggleButton btnControl_Red;
     public ToggleButton btnControl_Green;
     public ToggleButton btnControl_Blue;
-//    public Switch Switch_MQTT;
+    public Switch Switch_MQTT;
     public TextView textViewData;
 
     // added by J. Yun, SCH Univ.
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private String MQTT_Req_Topic = "";
     private String MQTT_Resp_Topic = "";
     private MqttAndroidClient mqttClient = null;
-//    private EditText EditText_Address =null;
+    //    private EditText EditText_Address =null;
     private String Mobius_Address ="203.253.128.161";
 
     // Main
@@ -84,8 +83,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
 
+        GetAEInfo();
+
 //        btnRetrieve = findViewById(R.id.btnRetrieve);
-//        Switch_MQTT = findViewById(R.id.switch_mqtt);
+        Switch_MQTT = findViewById(R.id.switch_mqtt);
         btnControl_Red = findViewById(R.id.btnControl_Red);
         btnControl_Green = findViewById(R.id.btnControl_Green);
         btnControl_Blue = findViewById(R.id.btnControl_Blue);
@@ -104,38 +105,37 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
 
 //        btnRetrieve.setOnClickListener(this);
-//        Switch_MQTT.setOnCheckedChangeListener(this);
+        Switch_MQTT.setOnCheckedChangeListener(this);
         btnControl_Red.setOnClickListener(this);
         btnControl_Green.setOnClickListener(this);
         btnControl_Blue.setOnClickListener(this);
 //        btnAddr_Set.setOnClickListener(this);
 
 //        btnRetrieve.setVisibility(View.INVISIBLE);
-//        Switch_MQTT.setVisibility(View.INVISIBLE);
+        Switch_MQTT.setVisibility(View.INVISIBLE);
         btnControl_Green.setVisibility(View.INVISIBLE);
         btnControl_Blue.setVisibility(View.INVISIBLE);
 
 //        btnAddr_Set.setFocusable(true);
 
-//Connect Addr
+        // Create AE and Get AEID
+        //GetAEInfo();
+
+        //앱 실행시 자동으로 서버와 연결
 
 //        btnRetrieve.setVisibility(View.VISIBLE);
-//        Switch_MQTT.setVisibility(View.VISIBLE);
+        Switch_MQTT.setVisibility(View.VISIBLE);
         btnControl_Red.setVisibility(View.VISIBLE);
         btnControl_Green.setVisibility(View.VISIBLE);
         btnControl_Blue.setVisibility(View.VISIBLE);
 
-        // added by J. Yun, SCH Univ.
-//        EditText_Address.setHintTextColor(Color.BLUE);
-//        EditText_Address.setBackgroundColor(Color.LTGRAY);
-//        EditText_Address.setFocusable(false);
-
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
 
-        GetAEInfo();
 
-//read server
+        Log.d(TAG, "MQTT Create");
+        MQTT_Create(true);
+
+        //센싱 값 지속적으로 받아옴
         Timer readserver = new Timer();
 
         TimerTask TT = new TimerTask() {
@@ -205,17 +205,16 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
         readserver.schedule(TT,0,1000);
 
-        // Create AE and Get AEID
-        //GetAEInfo();
     }
+
     /* AE Create for Androdi AE */
     public void GetAEInfo() {
 
         // You can put the IP address directly in code,
         // but also get it from EditText window
-        //Mobius_Address = EditText_Address.getText().toString();
+//        Mobius_Address = EditText_Address.getText().toString();
         csebase.setInfo(Mobius_Address,"7579","Mobius","1883");
-        //csebase.setInfo("203.253.128.161","7579","Mobius","1883");
+//        csebase.setInfo("203.253.128.161","7579","Mobius","1883");
 
         // AE Create for Android AE
         ae.setAppName("ncubeapp");
@@ -235,15 +234,15 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                             aeRetrieveRequest aeRetrive = new aeRetrieveRequest();
                             aeRetrive.setReceiver(new IReceived() {
                                 public void getResponseBody(final String resmsg) {
-                                handler.post(new Runnable() {
-                                    public void run() {
-                                    Log.d(TAG, "** AE Retrive ResponseCode[" + resmsg +"]");
-                                    MQTT_Req_Topic = "/oneM2M/req/Mobius2/"+ae.getAEid()+"_sub"+"/#";
-                                    MQTT_Resp_Topic = "/oneM2M/resp/Mobius2/"+ae.getAEid()+"_sub"+"/json";
-                                    Log.d(TAG, "ReqTopic["+ MQTT_Req_Topic+"]");
-                                    Log.d(TAG, "ResTopic["+ MQTT_Resp_Topic+"]");
-                                    }
-                                });
+                                    handler.post(new Runnable() {
+                                        public void run() {
+                                            Log.d(TAG, "** AE Retrive ResponseCode[" + resmsg +"]");
+                                            MQTT_Req_Topic = "/oneM2M/req/Mobius2/"+ae.getAEid()+"_sub"+"/#";
+                                            MQTT_Resp_Topic = "/oneM2M/resp/Mobius2/"+ae.getAEid()+"_sub"+"/json";
+                                            Log.d(TAG, "ReqTopic["+ MQTT_Req_Topic+"]");
+                                            Log.d(TAG, "ResTopic["+ MQTT_Resp_Topic+"]");
+                                        }
+                                    });
                                 }
                             });
                             aeRetrive.start();
@@ -259,8 +258,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if (isChecked) {
-            Log.d(TAG, "MQTT Create");
-            MQTT_Create(true);
+//            Log.d(TAG, "MQTT Create");
+//            MQTT_Create(true);
         } else {
             Log.d(TAG, "MQTT Close");
             MQTT_Create(false);
@@ -448,7 +447,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-/*            case R.id.btnRetrieve: {
+ /*           case R.id.btnRetrieve: {
                 RetrieveRequest req = new RetrieveRequest("light");
                 req.setReceiver(new IReceived() {
                     public void getResponseBody(final String msg) {
@@ -519,7 +518,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                         public void getResponseBody(final String msg) {
                             handler.post(new Runnable() {
                                 public void run() {
-                                textViewData.setText("************** LED Red On *************\r\n\r\n" + msg);
+                                    textViewData.setText("************** LED Red On *************\r\n\r\n" + msg);
                                 }
                             });
                         }
@@ -532,7 +531,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                         public void getResponseBody(final String msg) {
                             handler.post(new Runnable() {
                                 public void run() {
-                                textViewData.setText("************** LED Red Off *************\r\n\r\n" + msg);
+                                    textViewData.setText("************** LED Red Off *************\r\n\r\n" + msg);
                                 }
                             });
                         }
@@ -549,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                         public void getResponseBody(final String msg) {
                             handler.post(new Runnable() {
                                 public void run() {
-                                textViewData.setText("************** LED Green On *************\r\n\r\n" + msg);
+                                    textViewData.setText("************** LED Green On *************\r\n\r\n" + msg);
                                 }
                             });
                         }
@@ -562,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                         public void getResponseBody(final String msg) {
                             handler.post(new Runnable() {
                                 public void run() {
-                                textViewData.setText("************** LED Green Off *************\r\n\r\n" + msg);
+                                    textViewData.setText("************** LED Green Off *************\r\n\r\n" + msg);
                                 }
                             });
                         }
@@ -577,11 +576,11 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     ControlRequest req = new ControlRequest("5");
                     req.setReceiver(new IReceived() {
                         public void getResponseBody(final String msg) {
-                        handler.post(new Runnable() {
-                            public void run() {
-                            textViewData.setText("************** LED Blue On *************\r\n\r\n" + msg);
-                            }
-                        });
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    textViewData.setText("************** LED Blue On *************\r\n\r\n" + msg);
+                                }
+                            });
                         }
                     });
                     req.start();
@@ -590,18 +589,18 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     ControlRequest req = new ControlRequest("6");
                     req.setReceiver(new IReceived() {
                         public void getResponseBody(final String msg) {
-                        handler.post(new Runnable() {
-                            public void run() {
-                            textViewData.setText("************** LED Blue Off *************\r\n\r\n" + msg);
-                            }
-                        });
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    textViewData.setText("************** LED Blue Off *************\r\n\r\n" + msg);
+                                }
+                            });
                         }
                     });
                     req.start();
                 }
                 break;
             }
-/*            case R.id.toggleButton_Addr: {
+ /*           case R.id.toggleButton_Addr: {
                 if (((ToggleButton) v).isChecked()) {
 
                     btnRetrieve.setVisibility(View.VISIBLE);
@@ -611,12 +610,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     btnControl_Blue.setVisibility(View.VISIBLE);
 
                     // added by J. Yun, SCH Univ.
-                    EditText_Address.setHintTextColor(Color.BLUE);
-                    EditText_Address.setBackgroundColor(Color.LTGRAY);
-                    EditText_Address.setFocusable(false);
+//                    EditText_Address.setHintTextColor(Color.BLUE);
+//                    EditText_Address.setBackgroundColor(Color.LTGRAY);
+//                    EditText_Address.setFocusable(false);
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
+//                    imm.hideSoftInputFromWindow(EditText_Address.getWindowToken(), 0);//hide keyboard
 
                     GetAEInfo();
 
@@ -628,9 +627,9 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     btnControl_Blue.setVisibility(View.INVISIBLE);
 
                     // added by J. Yun, SCH Univ.
-                    EditText_Address.setBackgroundColor(Color.WHITE);
-                    EditText_Address.setHintTextColor(Color.GRAY);
-                    EditText_Address.setFocusable(true);
+//                    EditText_Address.setBackgroundColor(Color.WHITE);
+//                    EditText_Address.setHintTextColor(Color.GRAY);
+//                    EditText_Address.setFocusable(true);
                 }
                 break;
             }*/
