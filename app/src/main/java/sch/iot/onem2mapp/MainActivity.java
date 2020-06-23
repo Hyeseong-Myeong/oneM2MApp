@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public ToggleButton btnControl_Red;
     public ToggleButton btnControl_Green;
     public ToggleButton btnControl_Blue;
-    public Switch Switch_MQTT;
+//    public Switch Switch_MQTT;
     public TextView textViewData;
 
     // added by J. Yun, SCH Univ.
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         GetAEInfo();
 
 //        btnRetrieve = findViewById(R.id.btnRetrieve);
-        Switch_MQTT = findViewById(R.id.switch_mqtt);
+//        Switch_MQTT = findViewById(R.id.switch_mqtt);
         btnControl_Red = findViewById(R.id.btnControl_Red);
         btnControl_Green = findViewById(R.id.btnControl_Green);
         btnControl_Blue = findViewById(R.id.btnControl_Blue);
@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
 
 //        btnRetrieve.setOnClickListener(this);
-        Switch_MQTT.setOnCheckedChangeListener(this);
+//        Switch_MQTT.setOnCheckedChangeListener(this);
         btnControl_Red.setOnClickListener(this);
         btnControl_Green.setOnClickListener(this);
         btnControl_Blue.setOnClickListener(this);
 //        btnAddr_Set.setOnClickListener(this);
 
 //        btnRetrieve.setVisibility(View.INVISIBLE);
-        Switch_MQTT.setVisibility(View.INVISIBLE);
+//        Switch_MQTT.setVisibility(View.INVISIBLE);
         btnControl_Green.setVisibility(View.INVISIBLE);
         btnControl_Blue.setVisibility(View.INVISIBLE);
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         //앱 실행시 자동으로 서버와 연결
 
 //        btnRetrieve.setVisibility(View.VISIBLE);
-        Switch_MQTT.setVisibility(View.VISIBLE);
+//        Switch_MQTT.setVisibility(View.VISIBLE);
         btnControl_Red.setVisibility(View.VISIBLE);
         btnControl_Green.setVisibility(View.VISIBLE);
         btnControl_Blue.setVisibility(View.VISIBLE);
